@@ -16,7 +16,7 @@ export default async function Navbar() {
           </div>
         </Link>
       </div>
-      <div className="col-span-7 flex items-center">
+      <div className="col-span-6 flex items-center">
         <div className="flex items-center gap-4">
           <Link href="/about">
             <p className="text-lg font-normal text-white">About</p>
@@ -33,7 +33,7 @@ export default async function Navbar() {
         </div>
       </div>
       {!session?.user ? (
-        <div className="justify-right col-span-2 flex items-center">
+        <div className="justify-right col-span-3 flex items-center">
           <Link href="/api/auth/signin">
             <button className="items-end rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600">Sign In</button>
           </Link>
@@ -42,7 +42,9 @@ export default async function Navbar() {
           </Link>
         </div>
       ) : (
-        <UserCard user={session.user} />
+        <div className="col-span-3 flex items-center justify-end">
+          <UserCard user={session.user} />
+        </div>
       )}
     </div>
   );
