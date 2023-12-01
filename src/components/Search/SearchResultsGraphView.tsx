@@ -11,41 +11,13 @@ import {
 import SearchGraphSubplot from "@/components/Search/SearchGraphSubplot";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { Subplot } from "@/types/subplot";
-import { Centroid } from "@/types/entities";
-
-const UNIQUE_CENTROIDS = [
-  {
-    id: {
-      low: 0,
-      high: 0,
-    },
-    title: "Ecological Engineering of Marine Infrastructure",
-    color: "#c08446",
-  },
-  {
-    id: {
-      low: 1,
-      high: 0,
-    },
-    title: "Sustainable Urban Area Bio-Cement Fabrication",
-    color: "#4eb9b0",
-  },
-  {
-    id: {
-      low: 2,
-      high: 0,
-    },
-    title: "Engineered Living Materials",
-    color: "#cb5135",
-  },
-];
 
 export default function SearchResultsGraphView({
   graphologyData,
-  centroids,
+  centroidColorMapping,
 }: {
   graphologyData: Graph | null;
-  centroids: Centroid[];
+  centroidColorMapping: Record<string, string>;
 }) {
   const [subplots, setSubplots] = useState<Subplot[]>([]);
 
@@ -66,8 +38,8 @@ export default function SearchResultsGraphView({
   };
 
   useEffect(() => {
-    console.log(centroids);
-  }, [centroids]);
+    console.log(centroidColorMapping);
+  }, [centroidColorMapping]);
 
   return (
     <>
@@ -75,13 +47,13 @@ export default function SearchResultsGraphView({
         <h1 className="mb-2 font-mono text-xl">material database</h1>
 
         <div className="d-flex justify-content-between mt-1 flex-row">
-          {UNIQUE_CENTROIDS.map((centroid, i) => (
+          {Object.entries(centroidColorMapping).map(([key, value], i) => (
             <div className="flex flex-row items-center" key={i}>
               <div
                 className="mr-2 h-4 w-4 rounded-full"
-                style={{ backgroundColor: centroid.color }}
+                style={{ backgroundColor: value }}
               ></div>
-              <p className="text-sm">{centroid.title}</p>
+              <p className="text-sm">{key}</p>
             </div>
           ))}
         </div>
@@ -100,10 +72,10 @@ export default function SearchResultsGraphView({
             graphologyData={graphologyData}
             handleNodeClicked={handleNodeClicked}
           />
-          <ControlsContainer position={"bottom-right"}>
+          {/* <ControlsContainer position={"bottom-right"}>
             <ZoomControl />
             <FullScreenControl />
-          </ControlsContainer>
+          </ControlsContainer> */}
         </SigmaContainer>
       </div>
       <div className="mt-4 grid grid-cols-3 gap-4">

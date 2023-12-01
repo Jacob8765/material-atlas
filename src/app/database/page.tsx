@@ -1,26 +1,6 @@
 "use client";
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-
+import React, { useState } from "react";
 import "@react-sigma/core/lib/react-sigma.min.css";
-import Graph, { MultiDirectedGraph } from "graphology";
-import {
-  ControlsContainer,
-  FullScreenControl,
-  SigmaContainer,
-  ZoomControl,
-  useLoadGraph,
-  useRegisterEvents,
-  useSigma,
-} from "@react-sigma/core";
-import BrowseMaterialGraph from "@/components/Search/SearchGraphSubplot";
-// import type { Subplot, MaterialType } from "../../types/graph";
 import Link from "next/link";
 import iwanthue from "iwanthue";
 import { useSearchResults } from "../hooks/useSearchResults";
@@ -38,7 +18,8 @@ export default function databasePage() {
     "graph",
   );
 
-  const { data, graphologyData, centroids } = useSearchResults(searchQuery);
+  const { data, graphologyData, centroidColorMapping } =
+    useSearchResults(searchQuery);
 
   //   const showMaterialDrawer = (material: any) => {
   //     setSelectedMaterial(material);
@@ -73,8 +54,6 @@ export default function databasePage() {
         </p>
       </div>
 
-      <SearchBar setSearchQuery={setSearchQuery} />
-
       <div className="my-3 flex items-center justify-between">
         <SearchResultsViewTab
           onTabChange={setSearchResultsView}
@@ -85,10 +64,12 @@ export default function databasePage() {
         </h2>
       </div>
 
-      {searchResultsView === "graph" ? (
+      <SearchBar setSearchQuery={setSearchQuery} />
+
+      {searchResultsView === "graph" && graphologyData ? (
         <SearchResultsGraphView
           graphologyData={graphologyData}
-          centroids={centroids}
+          centroidColorMapping={centroidColorMapping}
         />
       ) : (
         <SearchResultsTableView data={data} />
