@@ -38,7 +38,7 @@ export default async function Navbar() {
             <button className="items-end rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600">Sign In</button>
           </Link>
           <Link href="/register" className="ml-2">
-            <button className="items-end rounded border border-blue-500 px-4 py-2 font-bold hover:bg-blue-500">Register</button>
+            <button className="items-end rounded border border-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-500">Register</button>
           </Link>
         </div>
       ) : (
