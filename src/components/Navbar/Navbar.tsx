@@ -18,7 +18,7 @@ export default async function Navbar() {
       </div>
       <div className="col-span-7 flex items-center">
         <div className="flex items-center gap-4">
-          <Link href="/">
+          <Link href="/about">
             <p className="text-lg font-normal">About</p>
           </Link>
           <Link href="/database">
