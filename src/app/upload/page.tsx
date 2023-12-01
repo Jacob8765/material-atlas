@@ -194,7 +194,7 @@ export default function UploadMaterialPage() {
       setInitialFormData(DUMMY_MATERIAL);
       setIsUploadingPaper(false);
       setHasUploadedPaper(true);
-    }, 1000);
+    }, 30000);
   };
 
   const handleMaterialSubmission = async (data: Material) => {

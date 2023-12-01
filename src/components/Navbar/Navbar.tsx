@@ -9,10 +9,12 @@ export default async function Navbar() {
   return (
     <div className="grid grid-cols-12 items-center gap-3 bg-gray-100 p-3">
       <div className="col-span-3 flex items-center">
-        <div className="flex flex-col items-center justify-center">
-          <h1 className="text-2xl font-bold">Material Atlas</h1>
-          <p>For coastal construction</p>
-        </div>
+        <Link href="/">
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="text-2xl font-bold">Material Atlas</h1>
+            <p>For coastal construction</p>
+          </div>
+        </Link>
       </div>
       <div className="col-span-7 flex items-center">
         <div className="flex items-center gap-4">
