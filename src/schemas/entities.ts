@@ -24,15 +24,9 @@ const neo4jNumSchema = z.custom((data) => {
 export const materialMetadataSchema = z.object({
   overview: z.string(),
   applications: z.string(),
-  reportType: z.enum([
-    "scientific_report",
-    "patent_number",
-    "product_data_sheet",
-  ]),
+  reportType: z.enum(["scientific_report", "patent_number", "product_data_sheet"]),
   doi: z.string(),
-  authors: z
-    .string()
-    .describe("First author, or manufacturer name for commercial materials"),
+  authors: z.string().describe("First author, or manufacturer name for commercial materials"),
   year: z.string(),
   title: z.string(),
   embeddings: z.array(z.number()).optional().nullable(),
@@ -40,16 +34,19 @@ export const materialMetadataSchema = z.object({
   formulaName: z.string(),
 });
 
+export const materialBioActivitySchema = z.object({
+  numberInvertebrate: z.number().optional(),
+  numberInvasive: z.number().optional(),
+  numberCryptogenic: z.number().optional(),
+  materialPH: z.number().optional(),
+  totalNumSpecies: z.number().optional(),
+  totalNumDays: z.number().optional(),
+});
+
 export const paperSchema = z.object({
-  reportType: z.enum([
-    "scientific_report",
-    "patent_number",
-    "product_data_sheet",
-  ]),
+  reportType: z.enum(["scientific_report", "patent_number", "product_data_sheet"]),
   doi: z.string(),
-  authors: z
-    .string()
-    .describe("First author, or manufacturer name for commercial materials"),
+  authors: z.string().describe("First author, or manufacturer name for commercial materials"),
   year: z.string(),
   title: z.string(),
   abstract: z.string().optional().describe("Abstract of the paper"),
@@ -61,21 +58,15 @@ export const elementSchema = z
     amount: neo4jNumSchema,
     unit: z.enum(["g", "kg", "%"]),
   })
-  .describe(
-    "Each element present in the current mix, as well as its amount and unit",
-  );
+  .describe("Each element present in the current mix, as well as its amount and unit");
 
 export const mixSchema = z.object({
   name: z.string(),
-  cementType: z.enum(
-    CEMENT_TYPE.map((cementType) => cementType.value) as [string, ...string[]],
-  ),
+  cementType: z.enum(CEMENT_TYPE.map((cementType) => cementType.value) as [string, ...string[]]),
   elements: z.array(elementSchema),
   mechanicalProperties: z.array(
     z.object({
-      name: z.enum(
-        MECHANICAL_PROPERTIES.map((mp) => mp.value) as [string, ...string[]],
-      ),
+      name: z.enum(MECHANICAL_PROPERTIES.map((mp) => mp.value) as [string, ...string[]]),
       amount: neo4jNumSchema.optional(),
       unit: z.string().optional(),
     }),
@@ -102,5 +93,6 @@ export const materialSchema = z
   })
   .merge(z.object({ metadata: materialMetadataSchema }))
   .merge(mixesSchema)
-  .merge(z.object({ centroid: centroidSchema.optional() }));
+  .merge(z.object({ centroid: centroidSchema.optional() }))
+  .merge(z.object({ bioactivity: materialBioActivitySchema }));
 //   .merge(z.object({ paper: paperSchema.optional() }));

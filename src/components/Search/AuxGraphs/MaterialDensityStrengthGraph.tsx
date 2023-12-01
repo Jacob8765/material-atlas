@@ -85,10 +85,10 @@ export default function MaterialDensityStrengthGraph({ materials }: { materials:
         </ScatterChart>
       </ResponsiveContainer>
 
-      <div className="mt-1 flex flex-row justify-between">
+      <div className="justify-left mt-1 flex flex-row">
         {Object.entries(CEMENT_TYPE_COLOR_MAPPING).map(([key, value], i) => (
-          <div className="flex flex-row items-center" key={i}>
-            <div className="mr-2 h-4 w-4 rounded-full" style={{ backgroundColor: value }}></div>
+          <div className="mr-8 flex flex-row items-center" key={i}>
+            <div className="mr-1 h-4 w-4 rounded-full" style={{ backgroundColor: value }}></div>
             <p className="text-sm">{key}</p>
           </div>
         ))}
