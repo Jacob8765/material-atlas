@@ -31,7 +31,7 @@ export default function MaterialDensityStrengthGraph({ materials }: { materials:
           y: strengthAmount as number,
           name: material.name,
           mixName: mix.name,
-          color: CEMENT_TYPE_COLOR_MAPPING[material.metadata.formulaName] ?? "#8884d8",
+          color: CEMENT_TYPE_COLOR_MAPPING[mix.cementType] ?? "#8884d8",
         });
       });
     });
@@ -60,7 +60,7 @@ export default function MaterialDensityStrengthGraph({ materials }: { materials:
   };
 
   return (
-    <div className="mt-4 rounded-lg bg-ivory p-4">
+    <div className="rounded-lg bg-ivory p-4">
       <h1 className="mb-2 font-mono text-xl">density vs. strength</h1>
       <ResponsiveContainer width="100%" height={400}>
         <ScatterChart

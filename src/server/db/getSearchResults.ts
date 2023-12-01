@@ -8,7 +8,7 @@ OPTIONAL MATCH (m)-[hm:HAS_MIX]->(mx:Mix)
 OPTIONAL MATCH (mx)-[he:HAS_ELEMENT]->(e:Element)
 
 WITH collect({name: e.name, amount: he.amount, unit: he.unit}) as allElements, mx, m, e, he, hm, c
-WITH collect({name: mx.name, cementType: "cement", mechanicalProperties: [{name: "density", amount: mx.density, unit: mx.densityUnit}, {name: "strength", amount: mx.strength, unit: mx.strengthUnit}], elements: allElements}) as mixes, m, c //e, he, hm, mx
+WITH collect({name: mx.name, cementType: mx.cementType, mechanicalProperties: [{name: "density", amount: mx.density, unit: mx.densityUnit}, {name: "strength", amount: mx.strength, unit: mx.strengthUnit}], elements: allElements}) as mixes, m, c //e, he, hm, mx
 WITH collect({name: m.name, metadata: {overview: m.overview}, elementId: id(m), identity: id(m), tsne_x: m.tsne_x, tsne_y: m.tsne_y, mixes: mixes, centroid: {id: c.id, title: c.title}}) as data, collect(DISTINCT m) as allMaterials
 
 RETURN data, [] as _nodes, [] as _relationships 
@@ -60,9 +60,7 @@ export async function getSearchResults(query: string, filters?: Filters) {
       data.push(...searchResults);
     } else {
       console.log("getting all materials");
-      const dbQuery = await dbSession.executeRead((tx) =>
-        tx.run(NO_SEARCH, {}),
-      );
+      const dbQuery = await dbSession.executeRead((tx) => tx.run(NO_SEARCH, {}));
 
       const searchResults = dbQuery.records[0]!.get("data");
       data.push(...searchResults);

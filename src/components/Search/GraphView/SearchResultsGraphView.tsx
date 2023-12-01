@@ -70,7 +70,7 @@ export default function SearchResultsGraphView({
 
       <div className="mt-4 grid grid-cols-3 gap-4">
         {subplots.map((subplot, i) => (
-          <div className="col-span-1 rounded-lg bg-ivory p-3" key={`${JSON.stringify(subplot.identity)}${subplot.type}${i}`}>
+          <div className="col-span-1 mb-4 rounded-lg bg-ivory p-3" key={`${JSON.stringify(subplot.identity)}${subplot.type}${i}`}>
             <div className="flex justify-between">
               <h1 className="mb-2 font-mono text-lg">
                 {ENTITY_TYPES[subplot.type]}: {subplot.name}
