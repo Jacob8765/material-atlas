@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import { SearchResultsGraph } from "./SearchResultsGraph";
 import "@react-sigma/core/lib/react-sigma.min.css";
 import Graph from "graphology";
-import {
-  ControlsContainer,
-  FullScreenControl,
-  SigmaContainer,
-  ZoomControl,
-} from "@react-sigma/core";
+import { ControlsContainer, FullScreenControl, SigmaContainer, ZoomControl } from "@react-sigma/core";
 import SearchGraphSubplot from "@/components/Search/GraphView/SearchGraphSubplot";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { Subplot } from "@/types/subplot";
@@ -26,10 +21,7 @@ export default function SearchResultsGraphView({
 
   const handleNodeClicked = async ({ identity, type, name }: Subplot) => {
     console.log("CLICKED", identity, type, name);
-    setSubplots((prev) => [
-      ...prev,
-      { type: type as ENTITY_TYPES, identity, name },
-    ]);
+    setSubplots((prev) => [...prev, { type: type as ENTITY_TYPES, identity, name }]);
   };
 
   const removeSubplot = (index: number) => {
@@ -46,16 +38,13 @@ export default function SearchResultsGraphView({
 
   return (
     <>
-      <div className="bg-ivory mt-4 rounded-lg p-4">
+      <div className="mt-4 rounded-lg bg-ivory p-4">
         <h1 className="mb-2 font-mono text-xl">material database</h1>
 
         <div className="d-flex justify-content-between mt-1 flex-row">
           {Object.entries(centroidColorMapping).map(([key, value], i) => (
             <div className="flex flex-row items-center" key={i}>
-              <div
-                className="mr-2 h-4 w-4 rounded-full"
-                style={{ backgroundColor: value }}
-              ></div>
+              <div className="mr-2 h-4 w-4 rounded-full" style={{ backgroundColor: value }}></div>
               <p className="text-sm">{key}</p>
             </div>
           ))}
@@ -71,22 +60,17 @@ export default function SearchResultsGraphView({
             zIndex: true,
           }}
         >
-          <SearchResultsGraph
-            graphologyData={graphologyData}
-            handleNodeClicked={handleNodeClicked}
-          />
+          <SearchResultsGraph graphologyData={graphologyData} handleNodeClicked={handleNodeClicked} />
           {/* <ControlsContainer position={"bottom-right"}>
             <ZoomControl />
             <FullScreenControl />
           </ControlsContainer> */}
         </SigmaContainer>
       </div>
+
       <div className="mt-4 grid grid-cols-3 gap-4">
         {subplots.map((subplot, i) => (
-          <div
-            className="bg-ivory col-span-1 rounded-lg p-3"
-            key={`${JSON.stringify(subplot.identity)}${subplot.type}${i}`}
-          >
+          <div className="col-span-1 rounded-lg bg-ivory p-3" key={`${JSON.stringify(subplot.identity)}${subplot.type}${i}`}>
             <div className="flex justify-between">
               <h1 className="mb-2 font-mono text-lg">
                 {ENTITY_TYPES[subplot.type]}: {subplot.name}
@@ -99,20 +83,11 @@ export default function SearchResultsGraphView({
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </h2>
             </div>
-            <SearchGraphSubplot
-              {...subplot}
-              handleNodeClicked={handleNodeClicked}
-              showMaterialInfo={showMaterialInfo}
-            />
+            <SearchGraphSubplot {...subplot} handleNodeClicked={handleNodeClicked} showMaterialInfo={showMaterialInfo} />
           </div>
         ))}
       </div>
