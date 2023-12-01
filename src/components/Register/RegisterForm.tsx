@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@/types/user";
-import { Form, Input, Select } from "antd";
+import { Button, Form, Input, Select } from "antd";
 import { Controller, useForm } from "react-hook-form";
 import { ControllerInput } from "../FormInputs/ControllerInput";
 import { RESEARCH_AREAS, ROLE_TYPES } from "@/constants/dbProperties";
@@ -26,7 +26,7 @@ export default function RegisterForm({ handleRegistrationFormSubmit }: RegisterF
       <div className="grid grid-cols-1 gap-0">
         <ControllerInput control={control} name="username" label="User Name" />
         <ControllerInput control={control} name="email" label="Email" />
-        <ControllerInput control={control} name="password" label="Password" />
+        <ControllerInput control={control} password name="password" label="Password" />
         <ControllerInput control={control} name="institution" label="Institution" />
 
         <Controller
@@ -61,6 +61,10 @@ export default function RegisterForm({ handleRegistrationFormSubmit }: RegisterF
           )}
         />
       </div>
+
+      <Button type="default" htmlType="submit" className="mt-4">
+        Register
+      </Button>
     </Form>
   );
 }

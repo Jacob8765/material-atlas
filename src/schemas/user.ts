@@ -2,7 +2,7 @@ import { RESEARCH_AREAS, ROLE_TYPES } from "@/constants/dbProperties";
 import z from "zod";
 
 export const userSchema = z.object({
-  userId: z.string().optional(),
+  id: z.string(),
   username: z.string(),
   password: z.string(),
   email: z.string().email(),

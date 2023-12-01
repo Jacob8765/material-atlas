@@ -96,7 +96,7 @@ function MaterialForm({
         {/* make an input for the title of the paper */}
         <Controller
           control={control}
-          name="metadata.title"
+          name="name"
           render={({ field }) => (
             <Form.Item label="Title" help="Report title or material name for commercial purposes" className="col-span-2">
               <Input placeholder="Title" {...field} />

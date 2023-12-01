@@ -1,14 +1,22 @@
+//prettier-ignore
+"use server"
+
 import { dbSession } from "@/server/db";
-import type { BaseQueryResponse, Filters } from "@/types/queries";
 import type { Material, Paper, Mix } from "@/types/entities";
-import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { materialSchema } from "@/schemas/entities";
+import { getServerAuthSession } from "../auth";
 
 const QUERY = `
-WITH $data as data_list
+MATCH (u:User {id: $id})
+MATCH (c:Centroid)
+WITH $data as data_list, u, c LIMIT 1
 UNWIND data_list AS data
 MERGE (m:Material {name: data.name})
+MERGE (u)-[:OWNS_MATERIAL]->(m)
+MERGE (m)-[:PART_OF_CLUSTER]->(c)
 SET m.overview = data.overview
+SET m.applications = data.applications
+SET m.numberInvertebrate = m.totalNumSpecies = data.bioactivity.totalNumSpecies, m.totalNumDays = data.bioactivity.totalNumDays
 WITH m, data
 UNWIND data.mixes AS mix
 MERGE (mx:Mix {name: mix.name})
@@ -21,12 +29,14 @@ MERGE (mx)-[:HAS_ELEMENT {amount: element.amount, unit: element.unit}]->(e)
     `;
 
 export async function uploadMaterial(data: Material) {
+  const session = await getServerAuthSession();
+  if (!session) throw new Error("Not authenticated");
+  console.log("id", session.user.id);
+
   try {
     const parsedData = materialSchema.parse(data);
 
-    const result = await dbSession.executeWrite((tx) =>
-      tx.run(QUERY, { data: parsedData }),
-    );
+    const result = await dbSession.executeWrite((tx) => tx.run(QUERY, { data: parsedData, id: session.user.id }));
 
     console.log(result);
   } catch (e) {

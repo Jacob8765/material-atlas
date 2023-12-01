@@ -7,18 +7,15 @@ interface ControllerInputProps {
   name: keyof User;
   label: string;
   placeholder?: string;
+  password?: boolean;
 }
 
-export const ControllerInput = ({ control, name, label, placeholder }: ControllerInputProps) => {
+export const ControllerInput = ({ control, name, label, placeholder, password }: ControllerInputProps) => {
   return (
     <Controller
       control={control}
       name={name}
-      render={({ field }) => (
-        <Form.Item label={label}>
-          <Input placeholder={placeholder} {...field} />
-        </Form.Item>
-      )}
+      render={({ field }) => <Form.Item label={label}>{password ? <Input.Password placeholder={placeholder} {...field} /> : <Input placeholder={placeholder} {...field} />}</Form.Item>}
     />
   );
 };

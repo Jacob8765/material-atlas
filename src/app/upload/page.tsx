@@ -5,6 +5,7 @@ import { uploadMaterial } from "@/server/db/uploadMaterial";
 import { Material } from "@/types/entities";
 import { Spin } from "antd";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const DUMMY_MATERIAL: Material = {
   name: `SuperCrete LK-${Math.floor(Math.random() * 100)}}`,
@@ -28,7 +29,7 @@ const DUMMY_MATERIAL: Material = {
   mixes: [
     {
       name: "Mix 1",
-      cementType: "lime",
+      cementType: "geopolymer",
       elements: [
         {
           name: "H20",
@@ -183,6 +184,8 @@ export default function UploadMaterialPage() {
   const [hasUploadedPaper, setHasUploadedPaper] = useState(false);
   const [isUploadingMaterial, setIsUploadingMaterial] = useState(false);
 
+  const router = useRouter();
+
   const handleUpload = async (file: any) => {
     console.log(file);
     setIsUploadingPaper(true);
@@ -191,7 +194,7 @@ export default function UploadMaterialPage() {
       setInitialFormData(DUMMY_MATERIAL);
       setIsUploadingPaper(false);
       setHasUploadedPaper(true);
-    }, 30000);
+    }, 1000);
   };
 
   const handleMaterialSubmission = async (data: Material) => {
@@ -199,7 +202,8 @@ export default function UploadMaterialPage() {
     try {
       console.log(data);
       const res = await uploadMaterial(data);
-      console.log(res);
+      router.push(`/database`);
+      // console.log(res);
     } catch (e) {
       console.log(e);
     } finally {
