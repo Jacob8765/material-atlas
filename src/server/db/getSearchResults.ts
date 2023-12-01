@@ -9,7 +9,7 @@ OPTIONAL MATCH (mx)-[he:HAS_ELEMENT]->(e:Element)
 
 WITH collect({name: e.name, amount: he.amount, unit: he.unit}) as allElements, mx, m, e, he, hm, c
 WITH collect({name: mx.name, cementType: mx.cementType, mechanicalProperties: [{name: "density", amount: mx.density, unit: mx.densityUnit}, {name: "strength", amount: mx.strength, unit: mx.strengthUnit}], elements: allElements}) as mixes, m, c //e, he, hm, mx
-WITH collect({name: m.name, metadata: {overview: m.overview}, elementId: id(m), identity: id(m), tsne_x: m.tsne_x, tsne_y: m.tsne_y, mixes: mixes, centroid: {id: c.id, title: c.title}}) as data, collect(DISTINCT m) as allMaterials
+WITH collect({name: m.name, metadata: {overview: m.overview}, bioactivity: {totalNumSpecies: m.totalNumSpecies, totalNumDays: m.totalNumDays}, elementId: id(m), identity: id(m), tsne_x: m.tsne_x, tsne_y: m.tsne_y, mixes: mixes, centroid: {id: c.id, title: c.title}}) as data, collect(DISTINCT m) as allMaterials
 
 RETURN data, [] as _nodes, [] as _relationships 
 `;

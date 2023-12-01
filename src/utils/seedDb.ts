@@ -57,7 +57,7 @@ const ELEMENTS = [
 const generateRandomMix = () => {
   const density = Math.floor(Math.random() * 100);
   const strength = Math.floor(Math.random() * 100);
-  const densityUnit = "g/cm3";
+  const densityUnit = "kg/m3";
   const strengthUnit = "MPa";
   const name = `Mix ${Math.floor(Math.random() * 100)}`;
 

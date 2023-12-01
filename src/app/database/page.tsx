@@ -15,6 +15,7 @@ import { Material } from "@/types/entities";
 import { Drawer } from "antd";
 import MaterialOverview from "@/components/Search/MaterialOverview";
 import MaterialDensityStrengthGraph from "@/components/Search/AuxGraphs/MaterialDensityStrengthGraph";
+import MaterialBioActivityGraph from "@/components/Search/AuxGraphs/MaterialBioActivityGraph";
 
 export default function databasePage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,7 +62,14 @@ export default function databasePage() {
         <SearchResultsTableView data={data} />
       )}
 
-      <MaterialDensityStrengthGraph materials={data} />
+      <div className="grid grid-cols-7 gap-4">
+        <div className="col-span-4">
+          <MaterialDensityStrengthGraph materials={data} />
+        </div>
+        <div className="col-span-3">
+          <MaterialBioActivityGraph materials={data} />
+        </div>
+      </div>
     </div>
   );
 }
