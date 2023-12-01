@@ -6,11 +6,14 @@ import iwanthue from "iwanthue";
 import { useSearchResults } from "../hooks/useSearchResults";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { Subplot } from "@/types/subplot";
-import { SearchResultsGraph } from "@/components/Search/SearchResultsGraph";
+import { SearchResultsGraph } from "@/components/Search/GraphView/SearchResultsGraph";
 import SearchBar from "@/components/Search/SearchBar";
 import { SearchResultsViewTab } from "@/components/Search/SearchResultsViewTab";
-import SearchResultsGraphView from "@/components/Search/SearchResultsGraphView";
+import SearchResultsGraphView from "@/components/Search/GraphView/SearchResultsGraphView";
 import SearchResultsTableView from "@/components/Search/TableView/SearchResultsTableView";
+import { Material } from "@/types/entities";
+import { Drawer } from "antd";
+import MaterialOverview from "@/components/Search/MaterialOverview";
 
 export default function databasePage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,26 +23,28 @@ export default function databasePage() {
 
   const { data, graphologyData, centroidColorMapping } =
     useSearchResults(searchQuery);
+  const [selectedMaterial, setSelectedMaterial] = useState<Material | null>();
+  const [isMaterialDrawerOpen, setIsMaterialDrawerOpen] = useState(false);
 
-  //   const showMaterialDrawer = (material: any) => {
-  //     setSelectedMaterial(material);
-  //     setIsMaterialDrawerOpen(true);
-  //   };
+  const showMaterialInfo = (material: Material) => {
+    setSelectedMaterial(material);
+    setIsMaterialDrawerOpen(true);
+  };
 
-  //   const closeMaterialDrawer = () => {
-  //     setIsMaterialDrawerOpen(false);
-  //   };
+  const closeMaterialDrawer = () => {
+    setIsMaterialDrawerOpen(false);
+  };
 
   return (
     <div className="h-full p-4">
-      {/* <Drawer
+      <Drawer
         title="Material Info"
         placement="right"
         onClose={closeMaterialDrawer}
         open={isMaterialDrawerOpen}
       >
-        <p>{JSON.stringify(selectedMaterial)}</p>
-      </Drawer> */}
+        {selectedMaterial && <MaterialOverview material={selectedMaterial} />}
+      </Drawer>
 
       <div className="my-3 mb-4">
         <h1 className="font-mono text-xl">Instructions</h1>
@@ -70,6 +75,7 @@ export default function databasePage() {
         <SearchResultsGraphView
           graphologyData={graphologyData}
           centroidColorMapping={centroidColorMapping}
+          showMaterialInfo={showMaterialInfo}
         />
       ) : (
         <SearchResultsTableView data={data} />

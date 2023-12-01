@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useEntityDetails } from "./hooks/useEntityDetails";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { materialSchema, mixSchema } from "@/schemas/entities";
-import BrowseMaterialGraph from "@/components/Search/SearchGraphSubplot";
+import BrowseMaterialGraph from "@/components/Search/GraphView/SearchGraphSubplot";
 
 export default function HomePage() {
   // const { data: entity } = useEntityDetails(

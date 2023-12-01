@@ -8,16 +8,19 @@ import {
   SigmaContainer,
   ZoomControl,
 } from "@react-sigma/core";
-import SearchGraphSubplot from "@/components/Search/SearchGraphSubplot";
+import SearchGraphSubplot from "@/components/Search/GraphView/SearchGraphSubplot";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { Subplot } from "@/types/subplot";
+import { Material } from "@/types/entities";
 
 export default function SearchResultsGraphView({
   graphologyData,
   centroidColorMapping,
+  showMaterialInfo,
 }: {
   graphologyData: Graph | null;
   centroidColorMapping: Record<string, string>;
+  showMaterialInfo: (material: Material) => void;
 }) {
   const [subplots, setSubplots] = useState<Subplot[]>([]);
 
@@ -108,6 +111,7 @@ export default function SearchResultsGraphView({
             <SearchGraphSubplot
               {...subplot}
               handleNodeClicked={handleNodeClicked}
+              showMaterialInfo={showMaterialInfo}
             />
           </div>
         ))}

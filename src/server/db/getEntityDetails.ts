@@ -7,16 +7,16 @@ import { Subplot } from "@/types/subplot";
 
 const QUERY_MAPPING: Record<ENTITY_TYPES, string> = {
   [ENTITY_TYPES.Material]: `
-  MATCH(m:Material)
+  MATCH(m:Material)-[:PART_OF_CLUSTER]->(c:Centroid)
   WHERE id(m) = $id
   OPTIONAL MATCH (m)-[hm:HAS_MIX]->(mx:Mix)
   OPTIONAL MATCH (mx)-[he:HAS_ELEMENT]->(e:Element)
   
-  WITH collect({name: e.name, amount: he.amount, unit: he.unit}) as allElements, mx, m, e, he, hm
+  WITH collect({name: e.name, amount: he.amount, unit: he.unit}) as allElements, mx, m, e, he, hm, c
   
-  WITH collect({name: mx.name, cementType: "cement", mechanicalProperties: [{name: "density", amount: mx.density, unit: mx.densityUnit}, {name: "strength", amount: mx.strength, unit: mx.strengthUnit}], elements: allElements}) as mixes, collect(distinct e) + collect(DISTINCT mx) as _nodes, collect(DISTINCT he) + collect(DISTINCT hm) as _relationships, m //e, he, hm, mx
+  WITH collect({name: mx.name, cementType: "cement", mechanicalProperties: [{name: "density", amount: mx.density, unit: mx.densityUnit}, {name: "strength", amount: mx.strength, unit: mx.strengthUnit}], elements: allElements}) as mixes, collect(distinct e) + collect(DISTINCT mx) as _nodes, collect(DISTINCT he) + collect(DISTINCT hm) as _relationships, m, c //e, he, hm, mx
   
-  return {name: m.name, overview: "my material", mixes: mixes} as data, _nodes + m as _nodes, _relationships
+  return {name: m.name, metadata: {overview: m.overview}, elementId: id(m), identity: id(m), tsne_x: m.tsne_x, tsne_y: m.tsne_y, mixes: mixes, centroid: {id: c.id, title: c.title}} as data, _nodes + m as _nodes, _relationships
     `,
   [ENTITY_TYPES.Paper]: `
         MATCH (paper:Paper {elementId: $elementId})

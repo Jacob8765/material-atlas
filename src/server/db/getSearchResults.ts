@@ -1,8 +1,6 @@
 import { dbSession } from "@/server/db";
 import type { BaseQueryResponse, Filters } from "@/types/queries";
 import type { Material, Paper, Mix } from "@/types/entities";
-import { ENTITY_TYPES } from "@/constants/dbProperties";
-import { materialSchema } from "@/schemas/entities";
 
 const BASE_QUERY = `
 MATCH(m)-[:PART_OF_CLUSTER]->(c:Centroid)

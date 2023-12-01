@@ -7,7 +7,7 @@ import {
   SigmaContainer,
   ZoomControl,
 } from "@react-sigma/core";
-import SearchGraphSubplot from "@/components/Search/SearchGraphSubplot";
+import SearchGraphSubplot from "@/components/Search/GraphView/SearchGraphSubplot";
 import { ENTITY_TYPES } from "@/constants/dbProperties";
 import { Subplot } from "@/types/subplot";
 import { Centroid, Material } from "@/types/entities";
