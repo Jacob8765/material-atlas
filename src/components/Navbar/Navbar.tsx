@@ -26,8 +26,10 @@ export default function Navbar() {
         </div>
       </div>
       <div className="justify-right col-span-2 flex items-center">
-        <button className="ml-auto items-end rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600">Sign In</button>
-        <button className="ml-auto items-end rounded border border-blue-500 px-4 py-2 font-bold hover:bg-blue-500">Register</button>
+        <button className="items-end rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-600">Sign In</button>
+        <Link href="/register" className="ml-2">
+          <button className="items-end rounded border border-blue-500 px-4 py-2 font-bold hover:bg-blue-500">Register</button>
+        </Link>
       </div>
     </div>
   );

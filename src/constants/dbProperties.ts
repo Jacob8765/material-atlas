@@ -58,3 +58,7 @@ export const NODE_COLOR_MAPPING: Record<string, string> = {
   Paper: "#0000ff",
   Element: "#ffff00",
 };
+
+export const RESEARCH_AREAS = ["Marine Science", "Biomedical", "Environmental", "Structural", "Other"];
+
+export const ROLE_TYPES = ["Professor", "Researcher", "Student", "Other"];
