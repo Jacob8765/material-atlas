@@ -7,7 +7,7 @@ export default async function Navbar() {
   console.log("SESSION", session?.user);
 
   return (
-    <div className="grid grid-cols-12 items-center gap-3 bg-gray-100 p-3">
+    <div className="grid grid-cols-12 items-center gap-3 bg-gray-200 p-3">
       <div className="col-span-3 flex items-center">
         <Link href="/">
           <div className="flex flex-col items-center justify-center">
