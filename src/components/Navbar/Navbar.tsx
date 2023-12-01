@@ -7,28 +7,28 @@ export default async function Navbar() {
   console.log("SESSION", session?.user);
 
   return (
-    <div className="grid grid-cols-12 items-center gap-3 bg-gray-200 p-3">
+    <div className="grid grid-cols-12 items-center gap-3 bg-gray-900 p-3">
       <div className="col-span-3 flex items-center">
         <Link href="/">
           <div className="flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Material Atlas</h1>
-            <p>For coastal construction</p>
+            <h1 className="text-2xl font-bold text-white">Material Atlas</h1>
+            <p className="text-white">For coastal construction</p>
           </div>
         </Link>
       </div>
       <div className="col-span-7 flex items-center">
         <div className="flex items-center gap-4">
           <Link href="/about">
-            <p className="text-lg font-normal">About</p>
+            <p className="text-lg font-normal text-white">About</p>
           </Link>
           <Link href="/database">
-            <p className="text-lg font-normal">Database</p>
+            <p className="text-lg font-normal text-white">Database</p>
           </Link>
           <Link href="/upload">
-            <p className="text-lg font-normal">Upload</p>
+            <p className="text-lg font-normal text-white">Upload</p>
           </Link>
           <Link href="/upload">
-            <p className="text-lg font-normal">Tools</p>
+            <p className="text-lg font-normal text-white">Tools</p>
           </Link>
         </div>
       </div>

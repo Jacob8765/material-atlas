@@ -123,7 +123,7 @@ const DUMMY_MATERIAL: Material = {
   ],
 };
 
-export const INITIAL_FORM_DATA: Material = {
+const INITIAL_FORM_DATA: Material = {
   name: "",
   bioactivity: {
     totalNumDays: 0,
